@@ -1,0 +1,78 @@
+// Code:
+
+class EventEmitter {
+  subscribers = new Map();
+
+  on(event, subscriber) {
+    let eventSubscribers = this.subscribers.get(event);
+
+    if (!eventSubscribers) {
+      eventSubscribers = [];
+    }
+
+    eventSubscribers.push(subscriber);
+    this.subscribers.set(event, eventSubscribers);
+
+    return () => {
+      const eventSubscribers = this.subscribers.get(event);
+      if (!eventSubscribers) {
+        return;
+      }
+      this.subscribers.set(event, eventSubscribers.filter((sub) => sub !== subscriber));
+    };
+  }
+  emit(event, arg) {
+    if (!this.subscribers.has(event)) {
+      return;
+    }
+
+    for (const subscriber of this.subscribers.get(event)) {
+      subscriber(arg);
+    }
+  }
+}
+
+// Usage:
+
+// event-emitter.js
+export const eventEmitter = new EventEmitter();
+
+// subscriber.js
+import { eventEmitter } from './event-emitter';
+
+const unsubscribeFn = eventEmitter.on('myEvent', (data) => {
+  console.log(data);
+});
+
+// producer.js
+import { eventEmitter } from './event-emitter';
+
+eventEmitter.emit('myEvent', "Hello world");
+
+// In React
+
+// App.jsx
+
+export const useEvent = (event, handler, deps = []) => {
+  useEffect(() => {
+    const unsubscribeFn = eventEmitter.on(event, handler);
+
+    return () => {
+      unsubscribeFn();
+    };
+  }, deps);
+};
+
+function App() {
+  const [user, setUser] = useState(null);
+
+  useEvent('setUser', newUser => {
+    setUser(newUser);
+  }, [setUser]);
+
+  if (!user) {
+    return 'loading';
+  }
+
+  return <div>{user.name}</div>
+}

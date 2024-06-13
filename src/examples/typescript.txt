@@ -1,0 +1,128 @@
+// Code:
+
+import {useEffect} from "react";
+
+type EventMap = {
+  [key: string | number | symbol]: any; // (...args: any[]) => void;
+};
+
+type Subscriber<T> = (data: T[keyof T]) => void;
+
+class EventEmitter<Events extends EventMap> {
+  private subscribers = new Map<keyof Events, Array<Subscriber<Events>>>();
+
+  on<E extends keyof Events>(
+    event: E,
+    subscriber: (data: Events[E]) => void,
+  ): () => void {
+    let eventSubscribers = this.subscribers.get(event);
+
+    if (!eventSubscribers) {
+      eventSubscribers = [];
+    }
+
+    eventSubscribers.push(subscriber as Subscriber<Events>);
+
+    this.subscribers.set(event, eventSubscribers);
+
+    return () => {
+      const eventSubscribers = this.subscribers.get(event);
+
+      if (!eventSubscribers) {
+        return;
+      }
+
+      this.subscribers.set(
+        event,
+        eventSubscribers.filter((sub) => sub !== subscriber),
+      );
+    };
+  }
+
+  emit<E extends keyof Events>(event: E, arg: Events[E]) {
+    if (!this.subscribers.has(event)) {
+      return;
+    }
+
+    for (const subscriber of this.subscribers.get(event)!) {
+      subscriber(arg);
+    }
+  }
+}
+
+// Usage:
+
+export type ActualEventMap = {
+  userRegistered: {
+    id: string;
+    email: string;
+    name: string;
+  };
+  userUpdated: {
+    id: string;
+    email: string;
+    name: string;
+  };
+};
+
+export const eventEmitter = new EventEmitter<ActualEventMap>();
+
+eventEmitter.on('userRegistered', (user) => {
+  // setState(user);
+});
+
+eventEmitter.emit('userRegistered', {
+  id: 'guid',
+  email: 'michael.scott@example.com',
+  name: 'Michael Scott'
+});
+
+// Usage in react components:
+function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribeFn = eventEmitter.on('userRegistered', (user) => {
+      setState(user)
+    });
+
+    return () => {
+      unsubscribeFn();
+    };
+  }, []);
+
+  if (!user) {
+    return 'loading';
+  }
+
+  return <div>{user.name}</div>
+}
+
+// Or with a custom hook:
+export const useEvent = <E extends keyof ActualEventMap>(
+  event: E,
+  handler: (data: ActualEventMap[E]) => void,
+  deps: any[] = [],
+) => {
+  useEffect(() => {
+    const unsubscribe = eventEmitter.on(event, handler);
+
+    return () => {
+      unsubscribe();
+    };
+  }, [event, ...deps]);
+};
+
+function App() {
+  const [user, setUser] = useState(null);
+
+  useEvent('userRegistered', (user) => {
+    setState(user);
+  }, [setState]);
+
+  if (!user) {
+    return 'loading';
+  }
+
+  return <div>{user.name}</div>
+}
