@@ -36,11 +36,11 @@ export default function RootLayout({
           `,
         }}
       />
-      <noscript><div><img src="https://mc.yandex.ru/watch/97561916" style={{ position: 'absolute', left: -9999 }} alt="" /></div></noscript>
       <body
         className={inter.className}
         // style={{ backgroundColor: '#101010' }}
       >
+        <noscript><div><img src="https://mc.yandex.ru/watch/97561916" style={{ position: 'absolute', left: -9999 }} alt="" /></div></noscript>
         {children}
       </body>
     </html>
