@@ -8,7 +8,14 @@ export const Navbar = () => {
     <>
       <header className="flex justify-between items-center px-4 sticky top-0 backdrop-blur-xl text-gray-700" style={{ height: headerHeightPx }}>
         <div>
-          <h1 className="font-light text-md md:text-2xl">event-emitter.com <span className="text-xs md:text-sm text-gray-600">With great power comes great responsibility</span></h1>
+          <h1 className="font-bold md:font-light text-md md:text-2xl" style={{ lineHeight: '100%' }}>
+            event-emitter.com
+            <br className="block md:hidden" />
+            {' '}
+            <span
+              className="text-xs md:text-sm text-gray-600 font-light"
+              style={{ lineHeight: '100%' }}
+            >With great power comes great responsibility</span></h1>
         </div>
         <nav>
           <Link href="https://github.com/nulnow">
@@ -16,7 +23,7 @@ export const Navbar = () => {
           </Link>
         </nav>
       </header>
-      <div className="px-4 text-xs font-light">
+      <div className="px-4 text-xs font-light mt-4">
         Fast copy&paste solutions
       </div>
       <section className="px-4 py-5">
