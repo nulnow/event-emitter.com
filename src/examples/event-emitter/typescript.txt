@@ -1,7 +1,5 @@
 // Code:
 
-import {useEffect} from "react";
-
 type EventMap = {
   [key: string | number | symbol]: any; // (...args: any[]) => void;
 };
