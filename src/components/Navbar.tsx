@@ -1,4 +1,4 @@
-import {cls, green, headerHeightPx, keyword, title} from "@/app/consts";
+import {headerHeightPx} from "@/app/consts";
 import src from "@/app/Octicons-mark-github.svg";
 import Link from 'next/link'
 import Image from 'next/image'
@@ -8,14 +8,17 @@ export const Navbar = () => {
     <>
       <header className="flex justify-between items-center px-4 sticky top-0 backdrop-blur-xl text-gray-700" style={{ height: headerHeightPx }}>
         <div>
-          <h1 className="font-bold md:font-light text-md md:text-2xl" style={{ lineHeight: '100%' }}>
-            event-emitter.com
-            <br className="block md:hidden" />
-            {' '}
-            <span
-              className="text-xs md:text-sm text-gray-600 font-light"
-              style={{ lineHeight: '100%' }}
-            >With great power comes great responsibility</span></h1>
+          <Link href="/">
+            <h1 className="font-bold md:font-light text-md md:text-2xl" style={{ lineHeight: '100%' }}>
+              event-emitter.com
+              <br className="block md:hidden" />
+              {' '}
+              <span
+                className="text-xs md:text-sm text-gray-600 font-light"
+                style={{ lineHeight: '100%' }}
+              >With great power comes great responsibility</span>
+            </h1>
+          </Link>
         </div>
         <nav>
           <Link href="https://github.com/nulnow">
