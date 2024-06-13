@@ -38,7 +38,7 @@ export default async function Animations() {
 
   return <Page title="Simple animations:">
     <div className="flex flex-row flex-wrap justify-start items-start">
-      <section className=" p-4" style={{ fontSize: 11, color: white }}>
+      <section className=" p-4" style={{ fontSize: 11, color: white, maxWidth: '100vw', overflow: 'scroll' }}>
         <div>
           <h3 className="text-white py-1 px-3 rounded-md font-semibold mb-6 inline-block" style={{ backgroundColor: '#3178c6' }}>CSS</h3>
           {/*<h3 className="text-white py-1 px-3 rounded-md font-semibold mb-6 inline-block" style={{ backgroundColor: '#185ca8' }}>CSS</h3>*/}
@@ -46,7 +46,7 @@ export default async function Animations() {
         <pre className="font-mono" style={{ color: white }} dangerouslySetInnerHTML={{__html: highlightedAnimationsCode}}></pre>
       </section>
 
-      <section className="p-4" style={{ fontSize: 11, color: white }}>
+      <section className="p-4" style={{ fontSize: 11, color: white, maxWidth: '100vw', overflow: 'scroll' }}>
         <div>
           <h3 className="text-black bg-yellow-300 py-1 px-3 rounded-md font-semibold mb-6 inline-block">HTML</h3>
         </div>
