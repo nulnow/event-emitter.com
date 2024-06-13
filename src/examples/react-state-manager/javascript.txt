@@ -1,0 +1,129 @@
+
+// Code:
+
+export class Reactive {
+  #value = null;
+  #subscribers = [];
+
+  constructor(initialValue) {
+    this.#value = initialValue;
+  }
+
+  get value() {
+    return this.#value;
+  }
+
+  next = (value) => {
+    if (value === this.#value) {
+      return;
+    }
+
+    this.#value = value;
+
+    for (const subscriber of this.#subscribers) {
+      subscriber(value);
+    }
+  };
+
+  subscribe = (fn) => {
+    this.#subscribers.push(fn);
+
+    return () => {
+      this.#subscribers = this.#subscribers.filter((s) => s !== fn);
+    };
+  };
+}
+
+// Hook:
+
+export const useReactive = (reactive, selector = (x) => x) => {
+  const [value, setValue] = useState(selector(reactive.value));
+
+  useEffect(() => {
+    const handler = () => {
+      const selectedValue = selector(reactive.value);
+
+      if (selectedValue !== value) {
+        setValue(selectedValue);
+      }
+    };
+
+    handler();
+    const unsubscribe = reactive.subscribe(handler);
+
+    return () => {
+      unsubscribe();
+    };
+  }, [reactive, selector, value]);
+
+  return value;
+};
+
+// Usage:
+
+const store = new Reactive({
+  isLoading: false,
+  isLoadingError: false,
+  user: null,
+});
+
+function App() {
+  const storeValue = useReactive(store);
+
+  return (
+    <div>
+      {(() => {
+        if (storeValue.isLoadingError) {
+          return 'loading error';
+        }
+
+        if (storeValue.isLoading) {
+          return 'loading';
+        }
+
+        return (
+          <div>
+            User: {storeValue.user?.name}
+          </div>
+        )
+      })()}
+      <ChildComponent />
+    </div>
+  );
+}
+
+function ChildComponent() {
+  const {isLoading} = useReactive(store);
+
+  const onClick = () => {
+    store.next({
+      isLoading: true,
+      isLoadingError: false,
+      user: null,
+    });
+
+    fetch("...")
+      .then(res => res.json())
+      .then(user => {
+        store.next({
+          isLoading: false,
+          isLoadingError: false,
+          user: user,
+        });
+      })
+      .catch(() => {
+        store.next({
+          isLoading: false,
+          isLoadingError: true,
+          user: null,
+        });
+      });
+
+  }
+
+  return (
+    <button onClick={onClick} disabled={isLoading}>
+      Load user
+    </button>
+  );
+}

@@ -1,0 +1,43 @@
+<div
+        style="width: 300px; border: 1px solid gray; border-radius: 5px; overflow: hidden"
+>
+    <header style="background-color: antiquewhite; padding: 10px; font-weight: bold">
+        My blog
+    </header>
+    <input
+            type="text"
+            id="input"
+            style="border: 1px solid gray"
+            onkeydown="
+                function createArticle(text) {
+                    const div = document.createElement('div');
+                    div.innerHTML =
+                      `<article class='loadEvent'>
+                            <p>${text}</p>
+                        </article>`.trim();
+
+                    return div.firstChild;
+                }
+
+                if (event.key === 'Enter' && input.value) {
+                    const article = createArticle(input.value);
+                    input.value = '';
+                    articles.prepend(article);
+                }
+            "
+    />
+    <button onclick="input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));">
+        Add article
+    </button>
+    <main style="padding: 10px; height: 300px; overflow: scroll;">
+        <h1>News:</h1>
+        <div id="articles" class="loadEvent">
+            <article class="loadEvent">
+                <p>My article text 2</p>
+            </article>
+            <article class="loadEvent">
+                <p>My article text 1</p>
+            </article>
+        </div>
+    </main>
+</div>

@@ -1,7 +1,9 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type {Metadata} from "next";
+import {Inter} from "next/font/google";
 import "./globals.css";
 import Script from 'next/script'
+import {cls, green, keyword, orange, title} from "@/app/consts";
+import {Navbar} from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,10 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Script
-        id="yandex-metrika"
-        dangerouslySetInnerHTML={{
-          __html: `
+      <head>
+        <Script
+          id="yandex-metrika"
+          dangerouslySetInnerHTML={{
+            __html: `
              (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
              m[i].l=1*new Date();
              for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
@@ -34,13 +37,45 @@ export default function RootLayout({
                   webvisor:true
              });
           `,
-        }}
-      />
+          }}
+        />
+        <style>{`
+        .hljs-keyword {
+          color: ${keyword};
+        }
+        
+        .hljs-title {
+          color: ${title};
+        }
+        
+        .hljs-title.class_ {
+          color: ${cls};
+        }
+        
+        .hljs-string, .hljs-comment {
+          color: ${green};
+        }
+        .hljs-tag .hljs-name {
+          color: ${orange}
+        }
+        
+        .hljs-tag .hljs-attr {
+          color: ${keyword}
+        }
+        
+        .hljs-attribute {
+          color: ${title}
+        }
+      `}</style>
+      </head>
       <body
         className={inter.className}
         // style={{ backgroundColor: '#101010' }}
       >
         <noscript><div><img src="https://mc.yandex.ru/watch/97561916" style={{ position: 'absolute', left: -9999 }} alt="" /></div></noscript>
+
+        <title>event-emitter.com</title>
+        <Navbar />
         {children}
       </body>
     </html>

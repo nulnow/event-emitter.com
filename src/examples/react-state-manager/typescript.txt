@@ -1,0 +1,139 @@
+
+// Code:
+
+type Subscriber<T> = (value: T) => void;
+
+export class Reactive<T> {
+  #value: T = null;
+  #subscribers: Array<Subscriber<T>> = [];
+
+  constructor(initialValue: T) {
+    this.#value = initialValue;
+  }
+
+  get value() {
+    return this.#value;
+  }
+
+  next = (value: T) => {
+    if (value === this.#value) {
+      return;
+    }
+
+    this.#value = value;
+
+    for (const subscriber of this.#subscribers) {
+      subscriber(value);
+    }
+  };
+
+  subscribe = (fn: Subscriber<T>) => {
+    this.#subscribers.push(fn);
+
+    return () => {
+      this.#subscribers = this.#subscribers.filter((s) => s !== fn);
+    };
+  };
+}
+
+// Hook:
+import {useState, useEffect} from 'react';
+
+export const useReactive = <T,G = T>(reactive: Reactive<T>, selector = (x: T): G => x as unknown as G): G => {
+  const [value, setValue] = useState<G>(selector(reactive.value));
+
+  useEffect(() => {
+    const handler = () => {
+      const selectedValue = selector(reactive.value);
+
+      if (selectedValue !== value) {
+        setValue(selectedValue);
+      }
+    };
+
+    handler();
+    const unsubscribe = reactive.subscribe(handler);
+
+    return () => {
+      unsubscribe();
+    };
+  }, [reactive, selector, value]);
+
+  return value;
+};
+
+// Usage:
+import React from 'react';
+
+const store = new Reactive<{
+  isLoading: boolean;
+  isLoadingError: boolean;
+  user: {
+    name: string;
+  } | null;
+}>({
+  isLoading: false,
+  isLoadingError: false,
+  user: null,
+});
+
+function App() {
+  const storeValue = useReactive(store);
+
+  return (
+    <div>
+      {(() => {
+        if (storeValue.isLoadingError) {
+          return 'loading error';
+        }
+
+        if (storeValue.isLoading) {
+          return 'loading';
+        }
+
+        return (
+          <div>
+            User: {storeValue.user?.name}
+        </div>
+      )
+      })()}
+  <ChildComponent />
+  </div>
+);
+}
+
+function ChildComponent() {
+  const {isLoading} = useReactive(store);
+
+  const onClick = () => {
+    store.next({
+      isLoading: true,
+      isLoadingError: false,
+      user: null,
+    });
+
+    fetch("...")
+      .then(res => res.json())
+      .then(user => {
+        store.next({
+          isLoading: false,
+          isLoadingError: false,
+          user: user,
+        });
+      })
+      .catch(() => {
+        store.next({
+          isLoading: false,
+          isLoadingError: true,
+          user: null,
+        });
+      });
+
+  }
+
+  return (
+    <button onClick={onClick} disabled={isLoading}>
+    Load user
+  </button>
+);
+}
