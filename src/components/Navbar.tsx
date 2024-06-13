@@ -31,9 +31,9 @@ export const Navbar = () => {
       </div>
       <section className="px-4 py-5">
         <nav className="flex gap-4">
-          <Link href="/" className="text-blue-600">Event Emitter</Link>
-          <Link href="/animations" className="text-blue-600">Animations</Link>
-          <Link href="/react-state-manager" className="text-blue-600">React state manager</Link>
+          <Link href="/" className="text-xs md:text-base text-blue-600">Event Emitter</Link>
+          <Link href="/animations" className="text-xs md:text-base text-blue-600">Animations</Link>
+          <Link href="/react-state-manager" className="text-xs md:text-base text-blue-600">React state manager</Link>
         </nav>
       </section>
     </>
