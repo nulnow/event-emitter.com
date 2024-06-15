@@ -68,6 +68,7 @@ export default function RootLayout({
         }
       `}</style>
         <meta name="google-site-verification" content="KhxMrRSEWaqrhxde6OpRGn0fG8ydEzW1CRO53gNT7qc" />
+        <meta name="yandex-verification" content="d46c851ad1cdbf13" />
       </head>
       <body
         className={inter.className}
