@@ -5,6 +5,7 @@ import {Page} from "@/components/Page";
 import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
 import typescript from 'highlight.js/lib/languages/typescript';
+import {CopyToClipboard} from "@/components/CopyToClipboard";
 
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('typescript', typescript);
@@ -30,6 +31,14 @@ export default async function Home() {
 
   return (
     <Page title="Event Emitter examples:">
+      <div className="p-4">
+        <p className="mb-2 text-sm text-gray-600">Installation:</p>
+        <p>
+          <CopyToClipboard textToCopy="npm i event-emitter-typescript">
+            <code title="Copy" className="text-base py-1 px-3 bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer">npm i event-emitter-typescript <span>📑</span></code>
+          </CopyToClipboard>
+        </p>
+      </div>
       <div className="flex flex-row flex-wrap justify-start items-start">
         <section className="p-4" style={{ fontSize: 11, color: white, maxWidth: '100vw', overflow: 'scroll' }}>
           <div>

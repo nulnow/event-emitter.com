@@ -22,9 +22,10 @@ export const Navbar = () => {
           </Link>
         </div>
         <nav>
-          <Link href="https://github.com/nulnow">
-            <Image width={20} height={20} src={src} alt={"github logo"}></Image>
-          </Link>
+          <a href="https://github.com/nulnow/event-emitter-typescript" target="_blank" className="flex justify-center items-center gap-2 font-base text-sm">
+            <span>GitHub</span>
+            <Image width={20} height={20} src={src} alt={"github logo"} className="inline-block"></Image>
+          </a>
         </nav>
       </header>
       <div className="px-4 text-xs font-light mt-4">
