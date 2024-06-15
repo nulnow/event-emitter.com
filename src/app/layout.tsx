@@ -67,6 +67,7 @@ export default function RootLayout({
           color: ${title}
         }
       `}</style>
+        <meta name="google-site-verification" content="KhxMrRSEWaqrhxde6OpRGn0fG8ydEzW1CRO53gNT7qc" />
       </head>
       <body
         className={inter.className}
