@@ -10,12 +10,12 @@ export const Navbar = () => {
         <div>
           <Link href="/" className="flex gap-2">
             <Image src="/android-chrome-192x192.png" className="block" height={25} width={25} style={{ minHeight: 25, maxHeight: 25 }} alt={"kangaroo cartoon"} />
-            <h1 className="font-bold md:font-light text-md md:text-2xl" style={{ lineHeight: '100%' }}>
+            <h1 className="font-bold md:font-bold text-md md:text-2xl" style={{ lineHeight: '100%' }}>
               event-emitter.com
               <br className="block md:hidden" />
               {' '}
               <span
-                className="text-xs md:text-sm text-gray-600 font-light"
+                className="text-xs md:text-sm text-gray-600 font-normal"
                 style={{ lineHeight: '100%' }}
               >With great power comes great responsibility</span>
             </h1>
@@ -35,9 +35,6 @@ export const Navbar = () => {
           </a>
         </nav>
       </header>
-      <div className="px-4 text-xs font-light mt-4">
-        Fast copy&paste solutions
-      </div>
       {/*<section className="px-4 py-5">*/}
       {/*  <nav className="flex gap-4">*/}
       {/*    <Link href="/" className="text-xs md:text-base text-blue-600">Event Emitter</Link>*/}
