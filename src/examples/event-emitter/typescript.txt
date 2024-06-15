@@ -50,20 +50,19 @@ class EventEmitter<Events extends EventMap> {
 
 // Usage:
 
-export type ActualEventMap = {
+// Provide your event map to create typesafe event emitter instance
+export const eventEmitter = new EventEmitter<{
   userRegistered: {
-    id: string;
-    email: string;
-    name: string;
+   id: string;
+   email: string;
+   name: string;
   };
   userUpdated: {
-    id: string;
-    email: string;
-    name: string;
+   id: string;
+   email: string;
+   name: string;
   };
-};
-
-export const eventEmitter = new EventEmitter<ActualEventMap>();
+}>();
 
 eventEmitter.on('userRegistered', (user) => { // Now it's fully typesafe
   setUserName(user.name);

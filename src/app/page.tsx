@@ -39,8 +39,9 @@ export default async function Home() {
         </section>
 
         <section className=" p-4" style={{ fontSize: 11, color: white, maxWidth: '100vw', overflow: 'scroll' }}>
-          <div>
-            <h3 className="text-white py-1 px-3 rounded-md font-semibold mb-6 inline-block" style={{ backgroundColor: '#3178c6' }}>TypeScript</h3>
+          <div className="flex justify-start items-center gap-4 mb-6">
+            <h3 className="text-white py-1 px-3 rounded-md font-semibold inline-block" style={{ backgroundColor: '#3178c6' }}>TypeScript</h3>
+            <h2 className="font-light text-xl">Typesafe event emitter</h2>
           </div>
           <pre className="font-mono" style={{ color: white }} dangerouslySetInnerHTML={{__html: highlightedTypeScriptCode}}></pre>
         </section>
