@@ -65,11 +65,12 @@ export type ActualEventMap = {
 
 export const eventEmitter = new EventEmitter<ActualEventMap>();
 
-eventEmitter.on('userRegistered', (user) => {
-  // setState(user);
+eventEmitter.on('userRegistered', (user) => { // Now it's fully typesafe
+  setUserName(user.name);
 });
 
-eventEmitter.emit('userRegistered', {
+
+eventEmitter.emit('userRegistered', { // Now it's fully typesafe
   id: 'guid',
   email: 'michael.scott@example.com',
   name: 'Michael Scott'
@@ -81,7 +82,7 @@ function App() {
 
   useEffect(() => {
     const unsubscribeFn = eventEmitter.on('userRegistered', (user) => {
-      setState(user)
+      setUser(user)
     });
 
     return () => {
@@ -93,14 +94,14 @@ function App() {
     return 'loading';
   }
 
-  return <div>{user.name}</div>
+  return <div>{user?.name}</div>
 }
 
 // Or with a custom hook:
 export const useEvent = <E extends keyof ActualEventMap>(
   event: E,
   handler: (data: ActualEventMap[E]) => void,
-  deps: any[] = [],
+  deps: unknown[] = [],
 ) => {
   useEffect(() => {
     const unsubscribe = eventEmitter.on(event, handler);
@@ -115,12 +116,12 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEvent('userRegistered', (user) => {
-    setState(user);
-  }, [setState]);
+    setUser(user);
+  }, [setUser]);
 
   if (!user) {
     return 'loading';
   }
 
-  return <div>{user.name}</div>
+  return <div>{user?.name}</div>
 }
