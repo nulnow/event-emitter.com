@@ -8,7 +8,8 @@ export const Navbar = () => {
     <>
       <header className="flex justify-between items-center px-4 sticky top-0 backdrop-blur-xl text-gray-700" style={{ height: headerHeightPx }}>
         <div>
-          <Link href="/">
+          <Link href="/" className="flex gap-2">
+            <Image src="/android-chrome-192x192.png" className="block" height={25} width={25} style={{ minHeight: 25, maxHeight: 25 }} alt={"kangaroo cartoon"} />
             <h1 className="font-bold md:font-light text-md md:text-2xl" style={{ lineHeight: '100%' }}>
               event-emitter.com
               <br className="block md:hidden" />

@@ -85,7 +85,6 @@ export default function RootLayout({
         // style={{ backgroundColor: '#101010' }}
       >
         <noscript><div><img src="https://mc.yandex.ru/watch/97561916" style={{ position: 'absolute', left: -9999 }} alt="" /></div></noscript>
-
         <title>event-emitter.com</title>
         <Navbar />
         {children}
