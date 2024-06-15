@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Event-Emitter.com",
-  description: "Easy way to copy event emitter to your code. With great power comes great responsibility",
+  description: "Typesafe event emitter for browser and nodejs",
   keywords: [
     'typesafe event emitter',
     'event emitter',
