@@ -10,6 +10,16 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Event-Emitter.com",
   description: "Easy way to copy event emitter to your code. With great power comes great responsibility",
+  keywords: [
+    'typesafe event emitter',
+    'event emitter',
+    'javascript',
+    'typescript',
+    'react state manager',
+    'react event emitter',
+    'react typesafe event emitter hook',
+    'Typesafe Event, TypeScript, React, Примеры использования, Typescript веб-разработка'
+  ]
 };
 
 export default function RootLayout({
