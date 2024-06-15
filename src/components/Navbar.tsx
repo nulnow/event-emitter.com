@@ -21,9 +21,16 @@ export const Navbar = () => {
             </h1>
           </Link>
         </div>
-        <nav>
+        <nav className="flex justify-center items-center gap-4">
+          <a href="https://www.npmjs.com/package/event-emitter-typescript" target="_blank" className="flex justify-center items-center gap-2 font-base text-sm">
+            {/*<span>npm</span>*/}
+            <span style={{ width: 20, height: 20 }}>
+              <Image width={20} height={20} src="/Npm-logo.svg" alt={"npm logo"} className="inline-block"></Image>
+            </span>
+          </a>
+
           <a href="https://github.com/nulnow/event-emitter-typescript" target="_blank" className="flex justify-center items-center gap-2 font-base text-sm">
-            <span>GitHub</span>
+            {/*<span>GitHub</span>*/}
             <Image width={20} height={20} src={src} alt={"github logo"} className="inline-block"></Image>
           </a>
         </nav>
