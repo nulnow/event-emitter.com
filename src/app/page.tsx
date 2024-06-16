@@ -43,7 +43,6 @@ export default async function Home() {
               <code title="Copy" className="text-base py-1 px-3 bg-gray-100 hover:bg-gray-200 rounded-md cursor-pointer">npm i event-emitter-typescript <span>📑</span></code>
             </CopyToClipboard>
           </p>
-
           <div className="mt-6"></div>
           <div className="flex justify-start items-center gap-4 mb-10">
             <h3 className="text-white py-1 px-3 rounded-md font-semibold inline-block" style={{ backgroundColor: '#3178c6' }}>TypeScript</h3>
