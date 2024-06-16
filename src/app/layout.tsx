@@ -88,6 +88,9 @@ export default function RootLayout({
         <title>event-emitter.com</title>
         <Navbar />
         {children}
+        <footer className="flex justify-center items-center bg-gray-100 text-gray-400 text-xs p-5">
+          <p>site version: 1</p>
+        </footer>
       </body>
     </html>
   );
