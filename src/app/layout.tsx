@@ -89,7 +89,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <footer className="flex justify-center items-center bg-gray-100 text-gray-400 text-xs p-5">
-          <p>site version: 1</p>
+          <p>site version: 2</p>
         </footer>
       </body>
     </html>
